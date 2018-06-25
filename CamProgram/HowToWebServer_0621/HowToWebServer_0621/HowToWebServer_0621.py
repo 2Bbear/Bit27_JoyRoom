@@ -60,6 +60,17 @@ def changeRectangleColor(targetcolor):
     
     return 'User' 
 
+#색상변경하는 메소드2
+@app.route('/changeRectangleColor2/<int:a>/<int:b>/<int:c>')
+def changeRectangleColor2(a,b=None,c=None):
+    global rectangleColor
+    rectangleColor=(a,b,c)
+    if rectangleColor:
+        return 'true'
+    else:
+        return 'false'
+    return 'false'
+
 #숫자 매개변수 넘기기
 @app.route('/printAge/<int:post_id>')
 def printAge(post_id):
@@ -71,6 +82,7 @@ def findPerson():
     global videoLocalTime
     global isFindPerson
     return "%s time: %04d-%02d-%02d %02d:%02d:%02d "%(isFindPerson,videoLocalTime.tm_year, videoLocalTime.tm_mon, videoLocalTime.tm_mday, videoLocalTime.tm_hour,videoLocalTime.tm_min, videoLocalTime.tm_sec)
+
 #test
 with app.test_request_context('/hello', method='POST'):
     # now you can do something with the request until the
