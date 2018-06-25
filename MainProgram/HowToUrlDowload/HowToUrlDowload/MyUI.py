@@ -45,8 +45,8 @@ class VideoDialog(QDialog):
         self.setupUI(modalsize)
         self.playVideo(videopath)
         self.show()
-
-    #UI세팅
+    
+    #UI세팅dddddddddd
     def setupUI(self,size):
         #윈도우 설정
         self.setWindowTitle("Left Dialog")#타이틀바 이름
