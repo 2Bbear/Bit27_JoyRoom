@@ -45,7 +45,7 @@ class VideoDialog(QDialog):
         self.setupUI(modalsize)
         self.playVideo(videopath)
         self.show()
-
+        
     #url을 요청하면 해당 url이 반환하는 값을 출력하는 메소드
     def downloadlocaltime(self,url):
         data = urllib.request.urlopen(url_time).read()
