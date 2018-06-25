@@ -1,14 +1,14 @@
--»ç¿ë¹ı
-1. ÀÚ½ÅÀÇ ipÁÖ¼Ò¸¦ ¾Ë¾Æ³À½Ã´Ù
-2. MyUI.py ÆÄÀÏ¿¡
-
+-ì‚¬ìš©ë²•
+1. ìì‹ ì˜ ipì£¼ì†Œë¥¼ ì•Œì•„ëƒ…ì‹œë‹¤
+2. MyUI.py íŒŒì¼ì—
+3. MyUIë¥¼ ì‹œì‘íŒŒì¼ë¡œ ì„¤ì •í•´ì„œ ì‹¤í–‰ì‹œí‚¨ë©´ ë©ë‹ˆë‹¤.
 
 # image url to download
 url = "http://100.100.80.51:5000/video_feed"
 path1="D:/GitHub/bit27class/Bit27/Python/HowToUrlDowload/Videotest.png"
 # file path and file name to download
-outpath = "D:/GitHub/bit27class/Bit27/Python/HowToUrlDowload/"
+outpath = "D:/GitHub/bit27class/Bit27/Python/HowToUrlDowload/" <====í˜„ì¬ í•´ë‹¹ íŒŒì¼ì˜ ì ˆëŒ€ ê²½ë¡œë¡œ ë°”ê¿” ì£¼ì–´ì•¼ í•©ë‹ˆë‹¤.
 outfile = "Videotest.png"
 
-ÀÌºÎºĞ¿¡¼­ 
-url ºÎºĞÀ» µ¿¿µ»óÀ» ¹ŞÀ» ¼ö ÀÖ´Â url·Î º¯°æÇÏ¸é µ¿¿µ»óÀÌ ¹Ş¾ÆÁı´Ï´Ù.
+ì´ë¶€ë¶„ì—ì„œ 
+url ë¶€ë¶„ì„ ë™ì˜ìƒì„ ë°›ì„ ìˆ˜ ìˆëŠ” urlë¡œ ë³€ê²½í•˜ë©´ ë™ì˜ìƒì´ ë°›ì•„ì§‘ë‹ˆë‹¤.
