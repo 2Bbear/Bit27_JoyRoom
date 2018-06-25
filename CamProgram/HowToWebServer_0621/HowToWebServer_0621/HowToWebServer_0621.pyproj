@@ -26,6 +26,7 @@
     <Compile Include="HowToWebServer_0621.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="static\" />
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>
