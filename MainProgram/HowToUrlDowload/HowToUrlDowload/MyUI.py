@@ -1,4 +1,5 @@
 import sys
+import urllib.request
 import datetime
 import mysql.connector
 from PyQt5.QtWidgets import *
@@ -10,6 +11,7 @@ from PyQt5.QtCore import *
 form_class = uic.loadUiType("0625_DBUI.ui")[0]
 
 class DemoForm(QMainWindow, form_class):
+    #생성자
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -21,6 +23,11 @@ class DemoForm(QMainWindow, form_class):
         self.okbtn.clicked.connect(self.OkbtnEvent)
         self.cancelbtn.clicked.connect(self.CancelBtnEvent)
         self.checkbtn.clicked.connect(self.CheckBtnEvent)
+
+    #Log url 넣으면 Log 문장을 String으로 반환하는 함수
+    def downloadlocaltime(self,url):
+        data = urllib.request.urlopen(url).read()
+        return str(data)
 
     def SubmitbtnEvent(self):
         db = mysql.connector.connect(host='192.168.137.1',port='3306' ,user='bit27_1', password='123123',database='bit27_db',charset='utf8mb4')
