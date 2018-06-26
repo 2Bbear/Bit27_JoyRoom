@@ -16,14 +16,13 @@ class DemoForm(QMainWindow, form_class):
         
         self.dblistview.setHeaderLabels(["TIME", "LOG"])
         self.dblistview = self.dblistview.invisibleRootItem()
-        
-        self.SubmitBtn.clicked.connect(self.SubmitbtnEvent)
+
+       # self.SubmitBtn.clicked.connect(self.SubmitbtnEvent)
         self.okbtn.clicked.connect(self.OkbtnEvent)
         self.cancelbtn.clicked.connect(self.CancelBtnEvent)
         self.checkbtn.clicked.connect(self.CheckBtnEvent)
 
     def SubmitbtnEvent(self):
-
         db = mysql.connector.connect(host='192.168.137.1',port='3306' ,user='bit27_1', password='123123',database='bit27_db',charset='utf8mb4')
         cursor = db.cursor()
         
@@ -32,7 +31,6 @@ class DemoForm(QMainWindow, form_class):
            add_log = "INSERT INTO datatable (datalog) VALUES ('"+submitdata+"')"
            cursor.execute(add_log)
            db.commit()
-           self.textbox1.text = ""
            cursor.close()
            db.close()
         else:

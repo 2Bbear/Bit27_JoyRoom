@@ -103,7 +103,13 @@ border-radius: 8px;
        </widget>
       </item>
       <item row="0" column="0" colspan="3">
-       <widget class="QTreeWidget" name="dblistview"/>
+       <widget class="QTreeWidget" name="dblistview">
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -155,8 +161,8 @@ border-radius: 8px;
    <slot>SubmitbtnEvent()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>410</x>
-     <y>145</y>
+     <x>411</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
      <x>802</x>
