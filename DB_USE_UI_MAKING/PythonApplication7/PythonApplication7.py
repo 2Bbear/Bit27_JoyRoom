@@ -1,6 +1,10 @@
 import sys
+import cv2
 import datetime
 import mysql.connector
+
+from scipy.ndimage import imread
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from PyQt5.QtGui import *
@@ -20,6 +24,7 @@ class DemoForm(QMainWindow, form_class):
         self.okbtn.clicked.connect(self.OkbtnEvent)
         self.cancelbtn.clicked.connect(self.CancelBtnEvent)
         self.checkbtn.clicked.connect(self.CheckBtnEvent)
+        self.cam1.mousePressEvent = self.click
 
     def SubmitbtnEvent(self):
 
@@ -56,6 +61,24 @@ class DemoForm(QMainWindow, form_class):
 
     def CheckBtnEvent(self):
         pass
+
+    def click(self , no_use_value):
+        cam = cv2.VideoCapture(0)
+
+        ret, frame = cam.read()
+
+        qformat = QImage.Format_Indexed8
+        if(len(frame.shape)==3):
+            if(frame.shape[2] == 4):
+                qformat = Qimage.Format_RGBA8888
+            else:
+                qformat = QImage.Format_RGB888
+
+        outimage = QImage(frame, frame.shape[1], frame.shape[0], frame.strides[0], qformat)
+        outimage = outimage.rgbSwapped()
+
+        self.cam1.setPixmap(QPixmap.fromImage(outimage))
+        self.cam1.setScaledContents(True)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
