@@ -9,10 +9,19 @@ import cv2
 
 app = Flask(__name__)
 #변화 가능한 변수
-rectangleColor=(0,0,255)
-foundedName='UnKnown'
-videoLocalTime=time.localtime()
-isFindPerson=False
+rectangleColor=(0,0,255) # 하이라이트 사각형 색상
+
+foundedName='UnKnown' # 찾은 이름
+findName='UnKnown' # 찾을 이름
+isFindPerson=False  # 사람을 찾았는가?
+
+foundedClothes='nonClothes' # 찾은 옷의 이름
+findClothes='nonClothes' #찾을 옷의 이름
+foundedClothesColor='nonColor' #찾은 옷의 색상
+findClothesColor='nonColor' #찾을 옷의 색상
+isFindClothes=False # 옷을 찾았는가?
+
+videoLocalTime=time.localtime() #로그 값에 남을 시간
 
 #영상 전송===========================
 def gen(fr):
@@ -41,11 +50,45 @@ def hello_world():
 @app.route('/mainService')
 def mainService():
     return "빰빠빰빠밤"
+#================================================================
+#찾은 옷의 색상을 반환하는 함수
+@app.route('/getFindedClothesColor')
+def getFindedClothesColor():
+    global foundedClothesColor
+    return '%s' %foundedClothesColor
 
-#문자열 매개변수 넘기기
-@app.route('/printName/<personname>')
-def printName(personname):
-    return 'User %s' %personname
+#찾을 옷의 색상을 변경하는 함수
+@app.route('/changeFindClothesColor/<clothescolor>')
+def changeFindClothesColor(clothescolor):
+    global findClothesColor
+    findClothesColor=clothescolor
+    return 'changed find clothes color is %s' %findClothesColor
+
+#찾은 옷의 이름을 반환하는 함수
+@app.route('/getFindedClothes')
+def getFindedClothes():
+    global foundedClothes
+    return '%s' %foundedClothes
+
+#찾을 옷의 이름을 변경하는 함수
+@app.route('/changeFindClothes/<clothesname>')
+def changeFindClothes(clothesname):
+    global findClothes
+    findClothes=clothesname
+    return 'changed find clothes name is %s' %findClothes
+
+#찾은 사람의 이름을 반환하는 함수
+@app.route('/getFindedPersonName')
+def getFindedPersonName():
+    global foundedName
+    return '%s' %foundedName
+
+#찾을 사람 이름을 변경하는 메소드
+@app.route('/changeFindName/<personname>')
+def changeFindName(personname):
+    global findName
+    findName=personname
+    return 'changed find person name is %s' %findName
 
 #색상변경하는 메소드
 @app.route('/changeRectangleColor/<targetcolor>')
@@ -77,8 +120,8 @@ def printAge(post_id):
     return 'Post %d d' % post_id
 
 #사람 찾은 로그 남기는 메소드
-@app.route('/findPerson')
-def findPerson():
+@app.route('/getCurrentLog')
+def getCurrentLog():
     global videoLocalTime
     global isFindPerson
     return "%s time: %04d-%02d-%02d %02d:%02d:%02d "%(isFindPerson,videoLocalTime.tm_year, videoLocalTime.tm_mon, videoLocalTime.tm_mday, videoLocalTime.tm_hour,videoLocalTime.tm_min, videoLocalTime.tm_sec)
