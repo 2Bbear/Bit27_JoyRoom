@@ -126,12 +126,6 @@ def getCurrentLog():
     global isFindPerson
     return "%s time: %04d-%02d-%02d %02d:%02d:%02d "%(isFindPerson,videoLocalTime.tm_year, videoLocalTime.tm_mon, videoLocalTime.tm_mday, videoLocalTime.tm_hour,videoLocalTime.tm_min, videoLocalTime.tm_sec)
 
-#test
-with app.test_request_context('/hello', method='POST'):
-    # now you can do something with the request until the
-    # end of the with block, such as basic assertions:
-    assert request.path == '/hello'
-    assert request.method == 'POST'
 
 
 if __name__ == '__main__':

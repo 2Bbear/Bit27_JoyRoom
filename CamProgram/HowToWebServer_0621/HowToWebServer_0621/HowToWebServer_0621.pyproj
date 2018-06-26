@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3d8fae75-6de3-4fc9-a9f7-40e3ad1774c1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>HowToWebServer_0621.py</StartupFile>
+    <StartupFile>CamWebServer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <Compile Include="camera.py" />
     <Compile Include="face_recog.py" />
-    <Compile Include="HowToWebServer_0621.py" />
+    <Compile Include="CamWebServer.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />
