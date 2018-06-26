@@ -1,4 +1,5 @@
 import sys
+import datetime
 import mysql.connector
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -11,27 +12,49 @@ class DemoForm(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.submitbtn.clicked.connect(self.SubmitbtnEvent)
-        self.checkbtn.clicked.connect(self.CheckbtnEvent)
+        
+        self.dblistview.setHeaderLabels(["TIME", "LOG"])
+        self.dblistview = self.dblistview.invisibleRootItem()
+        
+        self.SubmitBtn.clicked.connect(self.SubmitbtnEvent)
+        self.okbtn.clicked.connect(self.OkbtnEvent)
+        self.cancelbtn.clicked.connect(self.CancelBtnEvent)
+        self.checkbtn.clicked.connect(self.CheckBtnEvent)
 
     def SubmitbtnEvent(self):
 
-        db = mysql.connector.connect(host='192,168,137,1',port='3306' ,user='bit27', password='123123',database='bit27_db',charset='utf8mb4')
+        db = mysql.connector.connect(host='192.168.137.1',port='3306' ,user='bit27_1', password='123123',database='bit27_db',charset='utf8mb4')
         cursor = db.cursor()
         
         if(self.textbox1.text() == ""):
-            submitdata = "내용이 없습니다."
+            return
         else:
             submitdata = self.textbox1.text()
-            add_log = "INSERT INTO data (datalog) VALUES ('"+submitdata+"')"
+            add_log = "INSERT INTO datatable (datalog) VALUES ('"+submitdata+"')"
 
         cursor.execute(add_log)
         db.commit()
-
+        self.textbox1.text = ""
         cursor.close()
         db.close()
 
-    def CheckbtnEvent(self):
+    def OkbtnEvent(self):
+        if(self.textbox1.text() == ""):
+            return
+        else:
+            myTime = str(datetime.datetime.now())
+            textforlist = self.textbox1.text()
+
+            item = QTreeWidgetItem()
+            item.setText(0, myTime)
+            item.setText(1, textforlist)
+            self.dblistview.addChild(item)
+
+    def CancelBtnEvent(self):
+        sys.exit()
+
+
+    def CheckBtnEvent(self):
         pass
 
 if __name__ == "__main__":
