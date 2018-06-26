@@ -23,8 +23,6 @@ outfile2 = "Videotest2.png"
 if not os.path.isdir(outpath):
     os.makedirs(outpath)
 
-
-
 def DownloadVideo():
     # download
     urllib.request.urlretrieve(url, outpath+outfile)

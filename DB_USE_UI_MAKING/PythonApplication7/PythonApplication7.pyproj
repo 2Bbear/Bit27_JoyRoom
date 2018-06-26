@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>d55d8463-a565-47fe-921f-9d62d58310ef</ProjectGuid>
+    <ProjectGuid>c94adb2b-aaa1-471c-b30f-ad81a32713a5</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>MyUI.py</StartupFile>
+    <StartupFile>PythonApplication7.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>HowToUrlDowload</Name>
-    <RootNamespace>HowToUrlDowload</RootNamespace>
+    <Name>PythonApplication7</Name>
+    <RootNamespace>PythonApplication7</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,13 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="HowToUrlDowload.py" />
-    <Compile Include="MyUI.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ThreadingPlay.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="PythonApplication7.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="0625_DBUI.ui" />

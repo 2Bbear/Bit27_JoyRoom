@@ -6,7 +6,6 @@ from PyQt5 import uic
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-
 form_class = uic.loadUiType("0625_DBUI.ui")[0]
 
 class DemoForm(QMainWindow, form_class):
@@ -27,16 +26,17 @@ class DemoForm(QMainWindow, form_class):
         db = mysql.connector.connect(host='192.168.137.1',port='3306' ,user='bit27_1', password='123123',database='bit27_db',charset='utf8mb4')
         cursor = db.cursor()
         
-        if(self.textbox1.text() != ""):
-           submitdata = self.textbox1.text()
-           add_log = "INSERT INTO datatable (datalog) VALUES ('"+submitdata+"')"
-           cursor.execute(add_log)
-           db.commit()
-           self.textbox1.text = ""
-           cursor.close()
-           db.close()
+        if(self.textbox1.text() == ""):
+            return
         else:
-           return
+            submitdata = self.textbox1.text()
+            add_log = "INSERT INTO datatable (datalog) VALUES ('"+submitdata+"')"
+
+        cursor.execute(add_log)
+        db.commit()
+        self.textbox1.text = ""
+        cursor.close()
+        db.close()
 
     def OkbtnEvent(self):
         if(self.textbox1.text() == ""):
