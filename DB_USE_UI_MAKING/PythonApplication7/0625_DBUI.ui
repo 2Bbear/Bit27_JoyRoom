@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
-    <height>676</height>
+    <width>1079</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#MyLoginForm {
-background: gray;
+background: white;
 }
 
 #mainframe {
@@ -59,9 +59,9 @@ border-radius: 8px;
    <widget class="QFrame" name="mainframe">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>801</width>
+      <x>700</x>
+      <y>80</y>
+      <width>351</width>
       <height>581</height>
      </rect>
     </property>
@@ -76,7 +76,7 @@ border-radius: 8px;
       <rect>
        <x>20</x>
        <y>150</y>
-       <width>761</width>
+       <width>311</width>
        <height>411</height>
       </rect>
      </property>
@@ -112,7 +112,7 @@ border-radius: 8px;
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>761</width>
+       <width>311</width>
        <height>124</height>
       </rect>
      </property>
@@ -133,18 +133,129 @@ border-radius: 8px;
      </layout>
     </widget>
    </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>641</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="cam1">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;cam1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="cam3">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;cam3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="cam2">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;cam2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="cam4">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;cam4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>876</width>
+     <width>1079</width>
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_I">
+    <property name="title">
+     <string>정보(&amp;I)</string>
+    </property>
+    <addaction name="action"/>
+   </widget>
+   <widget class="QMenu" name="menu_H">
+    <property name="title">
+     <string>과거영상(&amp;H)</string>
+    </property>
+    <addaction name="actionLog_check"/>
+    <addaction name="actionDownload_avi"/>
+   </widget>
+   <addaction name="menu_I"/>
+   <addaction name="menu_H"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCreator_Credit">
+   <property name="text">
+    <string>Creator Credit</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>개발자 정보</string>
+   </property>
+  </action>
+  <action name="actionLog_check">
+   <property name="text">
+    <string>Log_check</string>
+   </property>
+  </action>
+  <action name="actionDownload_avi">
+   <property name="text">
+    <string>Download_avi</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
