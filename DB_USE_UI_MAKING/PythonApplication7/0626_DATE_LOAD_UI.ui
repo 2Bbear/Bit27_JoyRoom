@@ -320,28 +320,28 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QCheckBox" name="cam1checkbox">
+     <widget class="QCheckBox" name="checkBox">
       <property name="text">
        <string>Cam1</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QCheckBox" name="cam2checkbox">
+     <widget class="QCheckBox" name="checkBox_2">
       <property name="text">
        <string>Cam2</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QCheckBox" name="cam3checkbox">
+     <widget class="QCheckBox" name="checkBox_4">
       <property name="text">
        <string>Cam3</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QCheckBox" name="cam4checkbox">
+     <widget class="QCheckBox" name="checkBox_3">
       <property name="text">
        <string>Cam4</string>
       </property>
@@ -349,7 +349,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="takelogbtn">
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
      <x>10</x>
