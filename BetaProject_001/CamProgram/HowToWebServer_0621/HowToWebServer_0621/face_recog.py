@@ -7,92 +7,80 @@ import os
 import numpy as np
 import threading
 import time
-def MyThread(self):
-    self.face_locations = face_recognition.face_locations(self.rgb_small_frame)
-    self.face_encodings = face_recognition.face_encodings(self.rgb_small_frame, self.face_locations)
-    pass
+
+#--------------------------------------------------------------
+import sys
+from PyQt5.QtCore import QSize, QTimer
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.uic import loadUi
+import datetime
+
+font = cv2.FONT_HERSHEY_SIMPLEX
+#--------------------------------------------------------------
+
 class FaceRecog():
     def __init__(self):
-        # Using OpenCV to capture from device 0. If you have trouble capturing
-        # from a webcam, comment the line below out and use a video file
-        # instead.
+
         self.camera = camera.VideoCamera()
+         # Initialize some variables
+        self.face_locations = [] #얼굴 위치 담는 배열
+        self.face_encodings = [] #????
+        self.face_names = [] #이름들
+        self.process_this_frame = True #???
 
-        self.known_face_encodings = []
-        self.known_face_names = []
-        
-        
+        self.known_face_encodings = []# 인코딩할 사진들 넣어둘 리스트
+        self.known_face_names = [] #사진들 이름 넣어둘 리스트
 
-        # Load sample pictures and learn how to recognize it.
-        dirname = 'knowns'
-        files = os.listdir(dirname)
-        #폴더 안에 있는 모든 이미지를 얼굴 특징을 분석한 데이터로 저장
-        for filename in files:
-            name, ext = os.path.splitext(filename)
-            if ext == '.jpg':
-                self.known_face_names.append(name)
-                pathname = os.path.join(dirname, filename)
-                img = face_recognition.load_image_file(pathname)#이미지 파일 불러오기
-                face_encoding = face_recognition.face_encodings(img)[0]#얼굴 특징 분석
-                self.known_face_encodings.append(face_encoding)#각 파일별로 분석된 특징을 저장
-
-        # Initialize some variables
-        self.face_locations = []
-        self.face_encodings = []
-        self.face_names = []
-        self.currenttimer=0;
-        self.process_this_frame = True
-        #CustomValue
+        self.face = [] #상대방 이름
+        self.dirname = 'face'
+        self.files = os.listdir(self.dirname)       
         self.isfindperson=False#얼굴을 잡았을 경우 True
-        self.targetcolor=(0, 0, 255) #얼굴을 잡았을때 생성되는 사각형의 색상
         self.videoLocalTime=time.localtime()
-        
-        
+        self.name = "Unknown"
 
+        #사진 담음
+        for self.filename in self.files:                                      
+            name, ext = os.path.splitext(self.filename)              
+            if ext == '.jpg':                                       
+                self.pathname = os.path.join(self.dirname, self.filename)
+                self.img = face_recognition.load_image_file(self.pathname)
+                self.face_encoding = face_recognition.face_encodings(self.img)[0] 
+                self.known_face_encodings.append(self.face_encoding)
+                self.known_face_names.append(name)
+    
+        
     def __del__(self):
         del self.camera
 
     def get_frame(self):
-        # Grab a single frame of video
+        #self.timer2 = threading.Timer(0.7,self.get_frame)#0.7초 간격으로 자신의 함수를 부르는 재귀함수?
         frame = self.camera.get_frame()
-
-        # Resize frame of video to 1/4 size for faster face recognition processing
-        small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
         
-        # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-        self.rgb_small_frame = small_frame[:, :, ::-1]
+        now = datetime.datetime.now() # 시간 나타내기
+        self.small_frame = cv2.resize(frame, (0, 0), fx = 1, fy = 1 ) ####################################################### 원래 0.25
+        self.rgb_small_frame = self.small_frame[:, :, ::-1]
+         # Only process every other frame of video to save time
 
-        # Only process every other frame of video to save time
-        
-        #if self.process_this_frame:
-        if self.currenttimer>10:
+        if self.process_this_frame:
             # Find all the faces and face encodings in the current frame of video
-            
-            #t=threading.Thread(target=MyThread,args=(self,))
-            #t.start()
             self.face_locations = face_recognition.face_locations(self.rgb_small_frame)
-            #self.face_encodings = face_recognition.face_encodings(self.rgb_small_frame, self.face_locations)
-            
+            self.face_encodings = face_recognition.face_encodings(self.rgb_small_frame, self.face_locations)
+        
             self.face_names = []
-            for face_encoding in self.face_encodings:
+            for self.face_encoding in self.face_encodings:
                 # See if the face is a match for the known face(s)
-                distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+                self.matches = face_recognition.compare_faces(self.known_face_encodings, self.face_encoding)#얼굴 비교하는 부분
+                #self.name = "Unknown"
+                #print(self.matches)
 
-                min_value = min(distances)
-
-                # tolerance: How much distance between faces to consider it a match. Lower is more strict.
-                # 0.6 is typical best performance.
-                name = "Unknown"
-                if min_value < 0.6:
-                    index = np.argmin(distances)
-                    name = self.known_face_names[index]
-                    
-               
-
-                self.face_names.append(name)
-                self.currenttimer=0
-
-        self.currenttimer=self.currenttimer+1
+                # If a match was found in known_face_encodings, just use the first one.
+                if True in self.matches:
+                    self.first_match_index = self.matches.index(True)
+                    self.name = self.known_face_names[self.first_match_index]
+                self.face_names.append(self.name) #append : 리스트에 덧붙이는 형식
+                print("%s님이 %d년 %d월 %d일 %d시 %d분 %d 초에 1번 카메라에서 발견되었습니다."%(self.name,now.year, now.month, now.day, now.hour, now.minute, now.second))
+           
         self.process_this_frame = not self.process_this_frame
 
         if(self.face_locations):
@@ -102,36 +90,27 @@ class FaceRecog():
             self.isfindperson=False
             self.videoLocalTime=time.localtime()
 
-        # 얼굴 사각형만 출력
-        for (top, right, bottom, left) in self.face_locations:
-            # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-            top *= 4
-            right *= 4
-            bottom *= 4
-            left *= 4
-
-            # Draw a box around the face
-            cv2.rectangle(frame, (left, top), (right, bottom),  self.targetcolor, 2)
 
         # Display the results
-        #for (top, right, bottom, left), name in zip(self.face_locations, self.face_names):
-        #    # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-        #    top *= 4
-        #    right *= 4
-        #    bottom *= 4
-        #    left *= 4
+        for (self.x, self.y, self.w, self.h), name in zip(self.face_locations, self.face_names):
+            # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+ 
+            self.x *= 4 # top *= 4
+            self.y *= 4 # right *= 4
+            self.w *= 4 #  bottom *= 4
+            self.h *= 4 # left *= 4
 
-        #    # Draw a box around the face
-        #    cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+            # Draw a box around the face
+            cv2.rectangle(frame, (self.h, self.x), (self.y, self.w), (0, 0, 255), 2)
 
-        #    # Draw a label with a name below the face
-        #    cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-        #    font = cv2.FONT_HERSHEY_DUPLEX
-        #    cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-        #    beforName=name
-
+            # Draw a label with a name below the face
+            cv2.rectangle(frame, (self.h, self.w - 35), (self.y, self.w), (0, 0, 255), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(frame, name, (self.h + 6, self.w - 6), font, 1.0, (255, 255, 255), 1)
         return frame
 
+        #self.timer2.start()
+        
     def get_jpg_bytes(self):
         frame = self.get_frame()
         # We are using Motion JPEG, but OpenCV defaults to capture raw images,
