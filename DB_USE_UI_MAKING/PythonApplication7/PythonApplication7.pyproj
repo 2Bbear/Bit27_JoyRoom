@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="0625_DBUI.ui" />
+    <Content Include="0626_DATE_LOAD_UI.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

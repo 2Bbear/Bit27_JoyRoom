@@ -21,7 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="HowToUrlDowload.py" />
+    <Compile Include="AddTarget.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HistoryLogUI.py" />
     <Compile Include="MyUI.py">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="0625_DBUI.ui" />
+    <Content Include="0626_DATE_LOAD_UI.ui" />
+    <Content Include="Add_Target.ui" />
+    <Content Include="beautiful.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
