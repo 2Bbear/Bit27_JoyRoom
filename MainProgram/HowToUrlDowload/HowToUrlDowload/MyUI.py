@@ -8,6 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -19,6 +20,9 @@ from PyQt5.QtCore import *
 =======
 
 >>>>>>> parent of 4a21663... DB에서 문자 받고 넣는거 넣음
+=======
+
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 form_class = uic.loadUiType("0625_DBUI.ui")[0]
 
 class DemoForm(QMainWindow, form_class):
@@ -30,6 +34,9 @@ class DemoForm(QMainWindow, form_class):
         self.dblistview.setHeaderLabels(["TIME", "LOG"])
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
         self.dblistview = self.dblistview.invisibleRootItem()
 
        # self.SubmitBtn.clicked.connect(self.SubmitbtnEvent)
@@ -40,6 +47,7 @@ class DemoForm(QMainWindow, form_class):
         self.getlogButton.clicked.connect(self.GetLog)
         #데이터 가져오기
         self.datalog = "nothing"
+<<<<<<< HEAD
 =======
         self.dblistview = self.dblistview.invisibleRootItem()       #리스트뷰 설정하는 2줄
 
@@ -62,6 +70,10 @@ class DemoForm(QMainWindow, form_class):
     def downloadlocaltime(self,url):
         data = urllib.request.urlopen(url).read()
         return str(data)
+=======
+
+    def SubmitbtnEvent(self):
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 
     def SubmitbtnEvent(self):
         db = mysql.connector.connect(host='192.168.137.1',port='3306' ,user='bit27_1', password='123123',database='bit27_db',charset='utf8mb4')
@@ -69,6 +81,9 @@ class DemoForm(QMainWindow, form_class):
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 
             add_log = "INSERT INTO datatable (datalog) VALUES ('" +self.datalogchange+ "')"
             cursor.execute(add_log)
@@ -120,6 +135,7 @@ class DemoForm(QMainWindow, form_class):
 
             cursor.close()
             db.close()
+<<<<<<< HEAD
 =======
         if(self.textbox1.text() != ""):
            submitdata = self.textbox1.text()
@@ -153,6 +169,15 @@ class DemoForm(QMainWindow, form_class):
     def CancelBtnEvent(self):
         sys.exit()
 
+=======
+
+    def CancelBtnEvent(self):
+        sys.exit()
+
+
+    def CheckBtnEvent(self):
+        pass
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 
     def CheckBtnEvent(self):
         pass

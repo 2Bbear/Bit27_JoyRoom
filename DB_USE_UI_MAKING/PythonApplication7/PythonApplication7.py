@@ -1,10 +1,12 @@
 import sys
-import cv2
 import datetime
 import mysql.connector
+<<<<<<< HEAD
 
 from scipy.ndimage import imread
 from PyQt5 import QtWidgets, QtGui, QtCore
+=======
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from PyQt5.QtGui import *
@@ -24,7 +26,10 @@ class DemoForm(QMainWindow, form_class):
         self.okbtn.clicked.connect(self.OkbtnEvent)
         self.cancelbtn.clicked.connect(self.CancelBtnEvent)
         self.checkbtn.clicked.connect(self.CheckBtnEvent)
+<<<<<<< HEAD
         self.cam1.mousePressEvent = self.click
+=======
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 
     def SubmitbtnEvent(self):
 
@@ -61,6 +66,7 @@ class DemoForm(QMainWindow, form_class):
 
     def CheckBtnEvent(self):
         pass
+<<<<<<< HEAD
 
     def click(self , no_use_value):
         cam = cv2.VideoCapture(0)
@@ -79,6 +85,8 @@ class DemoForm(QMainWindow, form_class):
 
         self.cam1.setPixmap(QPixmap.fromImage(outimage))
         self.cam1.setScaledContents(True)
+=======
+>>>>>>> parent of 62d1ba7... Merge branch 'kim'
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
