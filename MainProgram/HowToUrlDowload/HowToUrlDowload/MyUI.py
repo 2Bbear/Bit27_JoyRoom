@@ -7,7 +7,6 @@ from PyQt5 import uic
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-#ddd
 form_class = uic.loadUiType("0625_DBUI.ui")[0]
 
 class DemoForm(QMainWindow, form_class):
