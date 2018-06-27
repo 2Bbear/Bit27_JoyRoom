@@ -24,6 +24,9 @@
     <Compile Include="AddTarget.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CamDetailShow.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HistoryLogUI.py" />
     <Compile Include="MyUI.py">
       <SubType>Code</SubType>
@@ -37,6 +40,7 @@
     <Content Include="0626_DATE_LOAD_UI.ui" />
     <Content Include="Add_Target.ui" />
     <Content Include="beautiful.jpg" />
+    <Content Include="Cam_Detail_Show.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

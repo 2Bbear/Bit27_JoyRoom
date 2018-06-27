@@ -83,9 +83,21 @@
     <rect>
      <x>110</x>
      <y>60</y>
-     <width>211</width>
-     <height>191</height>
+     <width>200</width>
+     <height>200</height>
     </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>191</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>211</width>
+     <height>16777215</height>
+    </size>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;사진 보여주기&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

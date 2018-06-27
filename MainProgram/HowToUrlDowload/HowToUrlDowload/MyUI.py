@@ -2,8 +2,10 @@ import sys
 import datetime
 import mysql.connector
 import cv2
+
 import HistoryLogUI as hisui
 import AddTarget as at
+import CamDetailShow as cds
 
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -24,6 +26,10 @@ class DemoForm(QMainWindow, form_class):
         self.Addtargetbtn.clicked.connect(self.AddTargetBtnEvent)         #버튼 누르면 새로운 Dialog창
 
         self.cam1.mousePressEvent = self.click                      #cam1이라는 이름을 가진 라벨을 누르면 이벤트 발생
+        self.cam2.mousePressEvent = self.click 
+        self.cam3.mousePressEvent = self.click 
+        self.cam4.mousePressEvent = self.click 
+
         self.actionLog_check.triggered.connect(self.ShowHistoryLog)        #메뉴에서 Log_Check 눌렀을때 이벤트 발생
 
     
@@ -57,14 +63,14 @@ class DemoForm(QMainWindow, form_class):
             self.dblistview.addChild(item)                                      #집어 넣는데 setText(컬럼번호, 내용) 유의하자
 
     def CancelBtnEvent(self):
-        sys.exit()                                                              #프로그램 종료
+        item = QTreeWidgetItem()
+        self.dblistview.removeChild(item)                                                           #프로그램 종료
 
     
     #현재는 imshow로 이미지만 보여주지만 Dialog만들어서 라벨에 크게띄우고 버튼도 만들어야 겠다
     def click(self , no_use_value):
-        img = cv2.imread("beautiful.jpg")
-        img = cv2.resize(img,None,fx=0.5, fy=0.5, interpolation = cv2.INTER_CUBIC)
-        cv2.imshow("example", img)
+        dlg = cds.Detail_Show()       #다른 파일에 있는 class이므로 잘 써주자
+        dlg.exec_()
 
     def ShowHistoryLog(self):
         dlg = hisui.HisTory_Log_Show()       #다른 파일에 있는 class이므로 잘 써주자
