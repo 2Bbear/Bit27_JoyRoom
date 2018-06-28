@@ -61,7 +61,6 @@ class FaceRecog():
         self.small_frame = cv2.resize(frame, (0, 0), fx = 1, fy = 1 ) ####################################################### 원래 0.25
         self.rgb_small_frame = self.small_frame[:, :, ::-1]
          # Only process every other frame of video to save time
-
         if self.process_this_frame:
             # Find all the faces and face encodings in the current frame of video
             self.face_locations = face_recognition.face_locations(self.rgb_small_frame)
