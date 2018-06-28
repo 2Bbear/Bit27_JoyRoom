@@ -11,6 +11,8 @@ import mysql.connector
 from operator import eq
 import threading
 
+import DBController
+
 app = Flask(__name__)
 #변화 가능한 변수
 rectangleColor=(0,0,255)
@@ -85,6 +87,19 @@ def findPerson():
   
     return datalog
 
+#현재 켜져있는 Cam의 ip 리스트를 반환하는 메소드
+@app.route('/getCurrentCamIP')
+def getCurrentCamIP():
+
+    #DB에서 현재 켜져 있는 Cam IP 받아오기
+    temp=DBController.DBController()
+    iplist=temp.getAllCamIPTable()
+    result=''
+    for ss in iplist:
+        result=result+"@"+ss
+
+    #====================================
+    return result
 
 
 #test
@@ -97,5 +112,5 @@ with app.test_request_context('/hello', method='POST'):
 
 #db_datalog()
 if __name__ == '__main__':
-    app.run(host='100.100.80.51', debug=True)
+    app.run(host='192.168.137.1', debug=True)
 

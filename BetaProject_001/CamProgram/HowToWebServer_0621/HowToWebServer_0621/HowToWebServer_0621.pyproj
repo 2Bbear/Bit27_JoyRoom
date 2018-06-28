@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DBController.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="face_recog.py" />
     <Compile Include="HowToWebServer_0621.py" />
     <Compile Include="camera.py">
