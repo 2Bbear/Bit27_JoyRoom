@@ -24,18 +24,28 @@ foundedName='UnKnown'
 videoLocalTime=time.localtime()
 isFindPerson=False
 datalog = "nothing"
+facepicturename='' #새로 추가된 얼굴 사진 이름
+facereencoding=False #새로 추가된 얼굴을 재 인코딩 하는 플래그
+deathflag=False
+
 #영상 전송===========================
 def gen(fr):
     global rectangleColor
     global isFindPerson
     global videoLocalTime
     global foundedName
+    global deathflag
     while True:
         fr.targetcolor=rectangleColor
         isFindPerson=fr.isfindperson
         foundedName = fr.name
         videoLocalTime=fr.videoLocalTime
         jpg_bytes = fr.get_jpg_bytes()
+        fr.newpicturename=facepicturename
+        if deathflag:
+            fr.reencodingflag=facereencoding
+            deathflag=False
+
         yield (b'--frame\r\n' 
                b'Content-Type: image/jpeg\r\n\r\n' + jpg_bytes + b'\r\n\r\n')
 
@@ -112,10 +122,11 @@ def sendImageFile(fliename):
     saveData(fliename,request.remote_addr,9009)
     return str(request.remote_addr)
     
-    
+
 
 #TCP를 이용해서 파일 다운 받는 함수
 def saveData(filename,HOST,PORT):
+    
     #test
     #filename='tt2.jpg'
     #=========
@@ -139,6 +150,8 @@ def saveData(filename,HOST,PORT):
         sname=s[1]
         print(sname)
         print(filename)
+        global facepicturename
+        facepicturename=sname
         #=======
         print("3")
 
@@ -147,7 +160,7 @@ def saveData(filename,HOST,PORT):
             print('파일[%s]: 서버에 존재하지 않거나 전송중 오류발생' %filename)
             return
  
-        with open('camdownload/' + sname, 'wb') as f:
+        with open('face/' + sname, 'wb') as f:
             try:
                 while  data:
                     f.write(data)
@@ -158,6 +171,11 @@ def saveData(filename,HOST,PORT):
                 print(e)
  
     print('파일[%s] 전송종료. 전송량 [%d]' %(filename, data_transferred))
+    global facereencoding
+    global deathflag
+    deathflag=True
+    facereencoding=True
+    
     pass
 
 #================================================================================

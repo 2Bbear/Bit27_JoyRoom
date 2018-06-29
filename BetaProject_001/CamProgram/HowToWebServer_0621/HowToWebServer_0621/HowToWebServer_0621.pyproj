@@ -33,6 +33,9 @@
   <ItemGroup>
     <Folder Include="face\" />
     <Folder Include="camdownload\" />
+    <Folder Include="body_capture\" />
+    <Folder Include="face_capture\" />
+    <Folder Include="original\" />
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>
