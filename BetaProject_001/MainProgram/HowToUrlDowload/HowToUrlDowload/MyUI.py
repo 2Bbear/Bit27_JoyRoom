@@ -2,6 +2,7 @@ import sys
 import datetime
 import mysql.connector
 import cv2
+import socketserver
 
 import HistoryLogUI as hisui
 import AddTarget as at
@@ -81,8 +82,41 @@ class DemoForm(QMainWindow, form_class):
         dlg = at.Add_Target_Image()       #다른 파일에 있는 class이므로 잘 써주자
         dlg.exec_()
 
+class MyTcpHandler(socketserver.BaseRequestHandler):
+    def handle(self):
+        data_transferred = 0
+        print('[%s] 연결됨' %self.client_address[0])
+        filename = self.request.recv(1024) # 클라이언트로 부터 파일이름을 전달받음
+        filename = filename.decode() # 파일이름 이진 바이트 스트림 데이터를 일반 문자열로 변환
+        filename="upload/"+filename
+        if not exists(filename): # 파일이 해당 디렉터리에 존재하지 않으면
+            return # handle()함수를 빠져 나온다.
+ 
+        print('파일[%s] 전송 시작...' %filename)
+        with open(filename, 'rb') as f:
+            try:
+                data = f.read(1024) # 파일을 1024바이트 읽음
+                while data: # 파일이 빈 문자열일때까지 반복
+                    data_transferred += self.request.send(data)
+                    data = f.read(1024)
+            except Exception as e:
+                print(e)
+ 
+        print('전송완료[%s], 전송량[%d]' %(filename,data_transferred))
+
+def ddd():
+    try:
+        HOST = ''
+        PORT = 9009
+        server = socketserver.TCPServer((HOST,PORT),MyTcpHandler)
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print('++++++파일 서버를 종료합니다.++++++')
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     demoWindow = DemoForm()
     demoWindow.show() 
     app.exec_()
+
+

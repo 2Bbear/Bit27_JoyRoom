@@ -1,5 +1,9 @@
+import socket
+
 from flask import Flask
 from flask import request
+from flask import jsonify
+
 from werkzeug import secure_filename
 
 from flask import Flask, render_template,url_for, Response
@@ -12,6 +16,8 @@ from operator import eq
 import threading
 
 import DBController
+
+
 
 app = Flask(__name__)
 #변화 가능한 변수
@@ -86,7 +92,7 @@ def findPerson():
     datalog = str("%s name: %04s - time: %04d-%02d-%02d %02d:%02d:%02d "%(isFindPerson,foundedName,videoLocalTime.tm_year, videoLocalTime.tm_mon, videoLocalTime.tm_mday, videoLocalTime.tm_hour,videoLocalTime.tm_min, videoLocalTime.tm_sec))
   
     return datalog
-
+#================================================================================DB
 #현재 켜져있는 Cam의 ip 리스트를 반환하는 메소드
 @app.route('/getCurrentCamIP')
 def getCurrentCamIP():
@@ -100,8 +106,45 @@ def getCurrentCamIP():
 
     #====================================
     return result
+#================================================================================FileTcpCommunication
+#사진 파일 받는 메소드
+@app.route('/sendImageFile/<fliename>')
+def sendImageFile(fliename):
+    saveData(fliename,request.remote_addr,9009)
+    return str(request.remote_addr)
+    
+    
 
+#TCP를 이용해서 파일 다운 받는 함수
+def saveData(filename,HOST,PORT):
+    #test
+    filename='tt2.jpg'
+    #=========
+    data_transferred = 0
+    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.connect((HOST,PORT))
+        sock.sendall(filename.encode())
+ 
+        data = sock.recv(1024)
+        if not data:
+            print('파일[%s]: 서버에 존재하지 않거나 전송중 오류발생' %filename)
+            return
+ 
+        with open('download/' + filename, 'wb') as f:
+            try:
+                while  data:
+                    f.write(data)
+                    data_transferred += len(data)
+                    print("앙")
+                    data = sock.recv(1024)
+            except Exception as e:
+                print(e)
+ 
+    print('파일[%s] 전송종료. 전송량 [%d]' %(filename, data_transferred))
+    pass
 
+#================================================================================
 #test
 with app.test_request_context('/hello', method='POST'):
     # now you can do something with the request until the
@@ -113,4 +156,4 @@ with app.test_request_context('/hello', method='POST'):
 #db_datalog()
 if __name__ == '__main__':
     app.run(host='192.168.137.1', debug=True)
-
+    
