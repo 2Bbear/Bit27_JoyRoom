@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="face\" />
+    <Folder Include="camdownload\" />
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>

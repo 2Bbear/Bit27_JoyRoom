@@ -1,11 +1,14 @@
 from flask import Flask
 from flask import request
+from flask import jsonify
+
 from werkzeug import secure_filename
 
 from flask import Flask, render_template,url_for, Response
 import face_recog
 import time
 import cv2
+import os
 #import pymysql
 import mysql.connector
 from operator import eq
@@ -13,6 +16,7 @@ import threading
 
 import DBController
 
+import socket
 app = Flask(__name__)
 #변화 가능한 변수
 rectangleColor=(0,0,255)
@@ -87,6 +91,7 @@ def findPerson():
   
     return datalog
 
+#================================================================================DB
 #현재 켜져있는 Cam의 ip 리스트를 반환하는 메소드
 @app.route('/getCurrentCamIP')
 def getCurrentCamIP():
@@ -100,8 +105,62 @@ def getCurrentCamIP():
 
     #====================================
     return result
+#================================================================================FileTcpCommunication
+#사진 파일 받는 메소드
+@app.route('/sendImageFile/<fliename>')
+def sendImageFile(fliename):
+    saveData(fliename,request.remote_addr,9009)
+    return str(request.remote_addr)
+    
+    
 
+#TCP를 이용해서 파일 다운 받는 함수
+def saveData(filename,HOST,PORT):
+    #test
+    #filename='tt2.jpg'
+    #=========
+    data_transferred = 0
+    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.connect((HOST,PORT))
+        print("1")
+        #_ 파싱
+        temp=''
+        temp=filename
+        df=chr(92)
+        temp=temp.replace("_",df)
+        print(temp)
+        filename=temp
+        print("2")
+        #==============
+        sock.sendall(filename.encode())
+        #====파일 이름 추출
+        s=os.path.split(filename)
+        sname=s[1]
+        print(sname)
+        print(filename)
+        #=======
+        print("3")
 
+        data = sock.recv(1024)
+        if not data:
+            print('파일[%s]: 서버에 존재하지 않거나 전송중 오류발생' %filename)
+            return
+ 
+        with open('camdownload/' + sname, 'wb') as f:
+            try:
+                while  data:
+                    f.write(data)
+                    data_transferred += len(data)
+                    print("앙")
+                    data = sock.recv(1024)
+            except Exception as e:
+                print(e)
+ 
+    print('파일[%s] 전송종료. 전송량 [%d]' %(filename, data_transferred))
+    pass
+
+#================================================================================
 #test
 with app.test_request_context('/hello', method='POST'):
     # now you can do something with the request until the
@@ -113,4 +172,4 @@ with app.test_request_context('/hello', method='POST'):
 #db_datalog()
 if __name__ == '__main__':
     app.run(host='192.168.137.1', debug=True)
-
+    
