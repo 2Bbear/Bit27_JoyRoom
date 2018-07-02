@@ -75,11 +75,10 @@ def changeRectangleColor(targetcolor):
     global rectangleColor
     if targetcolor=='blue':
         rectangleColor=(255,0,0)
-    elif targetcolor=='green':
+    elif targetcolor='green':
         rectangleColor=(0,255,0)
     elif targetcolor=='red':
         rectangleColor=(0,0,255)
-    
     return 'User' 
 
 #숫자 매개변수 넘기기
