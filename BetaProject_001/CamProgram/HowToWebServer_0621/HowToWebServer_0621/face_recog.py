@@ -24,7 +24,8 @@ import ColorAnal
 showframe = [0] #전체
 faceframe = [0] #얼굴
 area = ()       #인식여부
-clothflag=True
+clothflag=True #Tensorflow 한번만 실행 하게 하는 flag
+coloranswer='' # tensoflow 결과 값 저장될 변수
 class FaceRecog():
     def __init__(self):
         #=====================================================================================================
@@ -70,6 +71,7 @@ class FaceRecog():
 
     def get_frame(self):
         global clothflag
+        global coloranswer
         self.frame = self.camera.get_frame()
         
         now = datetime.datetime.now()
@@ -127,7 +129,7 @@ class FaceRecog():
                         #answer=ColorAnal.ColorAnalysis(imagePath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/body_capture/Kimmyeunghwan_body.jpg',
                         #                        modelFullPath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/output_graph.pb',
                         #                       labelsFullPath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/output_labels.txt')
-                        ColorAnal.ColorAnalysis()
+                        coloranswer=ColorAnal.ColorAnalysis()
                         
                         clothflag=False
 
