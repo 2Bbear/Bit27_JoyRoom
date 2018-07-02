@@ -17,12 +17,14 @@ from PyQt5.uic import loadUi
 import datetime
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-#--------------------------------------------------------------
+#--------------------------------------------------------------Tensorflow
+import ColorAnal 
 
+#--------------------------------------------------------------
 showframe = [0] #전체
 faceframe = [0] #얼굴
 area = ()       #인식여부
-
+clothflag=True
 class FaceRecog():
     def __init__(self):
         #=====================================================================================================
@@ -67,6 +69,7 @@ class FaceRecog():
         del self.camera
 
     def get_frame(self):
+        global clothflag
         self.frame = self.camera.get_frame()
         
         now = datetime.datetime.now()
@@ -118,6 +121,15 @@ class FaceRecog():
                     print(self.timer)
                     
                     self.timer = 0#함수 끝날 떄 초기화
+                    
+                    #옷 색 찾는 코드
+                    if clothflag:
+                        #answer=ColorAnal.ColorAnalysis(imagePath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/body_capture/Kimmyeunghwan_body.jpg',
+                        #                        modelFullPath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/output_graph.pb',
+                        #                       labelsFullPath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/output_labels.txt')
+                        ColorAnal.ColorAnalysis()
+                        
+                        clothflag=False
 
         self.timer +=1#타이머 돌기
         

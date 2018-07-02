@@ -21,6 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ClothesAnal.py" />
+    <Compile Include="ColorAnal.py" />
     <Compile Include="DBController.py">
       <SubType>Code</SubType>
     </Compile>

@@ -1,0 +1,9 @@
+white
+yellow
+purple
+orange
+indigo
+red
+balck
+gray
+sky blue
