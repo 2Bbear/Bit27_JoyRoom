@@ -130,7 +130,6 @@ class FaceRecog():
                         #                        modelFullPath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/output_graph.pb',
                         #                       labelsFullPath='D:/GitHub/Bit27_JoyRoom/BetaProject_001/CamProgram/HowToWebServer_0621/HowToWebServer_0621/output_labels.txt')
                         coloranswer=ColorAnal.ColorAnalysis()
-                        
                         clothflag=False
 
         self.timer +=1#타이머 돌기
