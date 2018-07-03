@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CamProgram", "CamProgram\CamProgram.pyproj", "{5FF9DF37-F080-4B72-A343-CE6171F5A8F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FF9DF37-F080-4B72-A343-CE6171F5A8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF9DF37-F080-4B72-A343-CE6171F5A8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B9AE276-4B1F-4BFA-AD95-B91E68D50111}
+	EndGlobalSection
+EndGlobal
