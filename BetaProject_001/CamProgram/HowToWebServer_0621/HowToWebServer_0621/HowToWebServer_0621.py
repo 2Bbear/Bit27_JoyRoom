@@ -40,7 +40,9 @@ def gen(fr):
         isFindPerson=fr.isfindperson
         foundedName = fr.name
         videoLocalTime=fr.videoLocalTime
+        
         jpg_bytes = fr.get_jpg_bytes()
+        
         fr.newpicturename=facepicturename
         if deathflag:
             fr.reencodingflag=facereencoding
@@ -75,7 +77,7 @@ def changeRectangleColor(targetcolor):
     global rectangleColor
     if targetcolor=='blue':
         rectangleColor=(255,0,0)
-    elif targetcolor='green':
+    elif targetcolor=='green':
         rectangleColor=(0,255,0)
     elif targetcolor=='red':
         rectangleColor=(0,0,255)
@@ -188,5 +190,5 @@ with app.test_request_context('/hello', method='POST'):
 
 #db_datalog()
 if __name__ == '__main__':
-    app.run(host='192.168.137.1', debug=True)
+    app.run(host='192.168.0.33', debug=True)
     
