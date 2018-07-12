@@ -45,11 +45,9 @@ class CamManger:
         #타이머
         self.SetTimer_A()
 
-
-
         #Webserver 실행
-        #thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,))
-        #thread_webserver.start()
+        thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,))
+        thread_webserver.start()
         pass
     
     #frame 에서 jpg로 변환된 파일을 가져오는 함수
@@ -62,6 +60,7 @@ class CamManger:
             self.video.MakeAviFile()
         print('waat?')    
         pass
+
     #타이머
     def SetTimer_A(self):
         l.L_Flow()
