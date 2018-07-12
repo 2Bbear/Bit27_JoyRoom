@@ -12,18 +12,18 @@ lock=threading.Lock()#frame의 안정적인 생성을 위한 락
 
 import Log as l
 class Video:
-    SAVEDIRPATH=None
+    SAVEDIRPATH='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/'
     frame = None
     camera = None
     thread_capture=None
     camnum=0
     ismakeavi=True
-    out=None
+    out=None#ddfsf
     def __init__(self,_savedirpath='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/',_camnum=0):
         l.L_Flow()
         self.frame = []
-        self.SAVEDIRPATH=_savedirpath
-        self.camnum=_camnum
+        #self.SAVEDIRPATH=_savedirpath
+        #self.camnum=_camnum
     def __del__(self):
         l.L_Flow()
         self.out.release()
@@ -38,7 +38,7 @@ class Video:
     #캠을 여는 함수
     def OpenCam(self):
         l.L_Flow()
-        self.camera = cv2.VideoCapture(self.camnum)  
+        self.camera = cv2.VideoCapture(0)  
         self.camera.set(3,320)
         self.camera.set(4,240)
 
