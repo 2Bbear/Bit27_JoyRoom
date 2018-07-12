@@ -17,10 +17,14 @@ class Video:
     thread_capture=None
     num=0
     ismakeavi=True
-    
+    out=None
     def __init__(self):
         l.L_Flow()
         self.frame = []
+    def __del__(self):
+        l.L_Flow()
+        self.out.release()
+        self.camera.release()
 
     #Fram을 jpg 바이너리로 변환하는 함수    
     def get_jpg_bytes(self):
@@ -32,7 +36,7 @@ class Video:
     def MakeAviFile(self):
         l.L_Flow()
         try:
-            fps=960
+            fps=20
             width=int(self.camera.get(3))
             height=int(self.camera.get(4))
             _saveavifilepath=self.SAVEDIRPATH+str(self.num)+'.avi'
@@ -63,12 +67,24 @@ class Video:
     #프레임을 계속 찍는 함수
     def RunFrame(self):
         l.L_Flow()
-
+        fps=15
+        width=int(self.camera.get(3))
+        height=int(self.camera.get(4))
+        
         while True:
-            self.thread_capture=threading.Thread(target=self.CaptureCam)
-            self.thread_capture.start()
-            self.thread_capture.join()
-             
+            print('1')
+            _saveavifilepath=self.SAVEDIRPATH+str(self.num)+'.avi'
+            self.out = cv2.VideoWriter(_saveavifilepath,cv2.VideoWriter_fourcc('M','J','P','G'), fps, (width,height))
+            while self.ismakeavi:
+                print('2')
+                self.thread_capture=threading.Thread(target=self.CaptureCam)
+                self.thread_capture.start()
+                self.thread_capture.join()
+                self.out.write(self.frame)
+            
+            self.out.release()
+            self.ismakeavi=True
+            self.num+=1
         pass
 
     #캠을 닫는 함수

@@ -36,31 +36,19 @@ class CamManger:
         self.thread_video=threading.Thread(target=self.video.RunFrame)
         self.thread_video.start()
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
-        
-        #영상 저장하기
-        self.thread_makeavi=threading.Thread(target=self.MakeAviFile)
-        self.thread_makeavi.start()
 
-        time.sleep(1)
         #타이머
         self.SetTimer_A()
 
         #Webserver 실행
-        thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,))
-        thread_webserver.start()
+        #thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,))
+        #thread_webserver.start()
         pass
     
     #frame 에서 jpg로 변환된 파일을 가져오는 함수
     def get_jpg_bytes(self):
         return self.video.get_jpg_bytes()
     #Cam 영상을 저장하는 함수=================================================
-    def MakeAviFile(self):
-        l.L_Flow()
-        while True:
-            self.video.MakeAviFile()
-         
-        pass
-
     #타이머
     def SetTimer_A(self):
         l.L_Flow()
