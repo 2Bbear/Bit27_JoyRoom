@@ -36,7 +36,7 @@ class Video:
     
 #Custom 
     #캠을 여는 함수
-    def OpenCam(self):
+    def OpenCam(self):#dfs
         l.L_Flow()
         self.camera = cv2.VideoCapture(0)  
         self.camera.set(3,320)
