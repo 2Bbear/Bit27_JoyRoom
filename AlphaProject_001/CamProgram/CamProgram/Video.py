@@ -12,18 +12,21 @@ lock=threading.Lock()#frame의 안정적인 생성을 위한 락
 
 import Log as l
 class Video:
-    SAVEDIRPATH='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/'
+    SAVEDIRPATH=''
     frame = None
     camera = None
     thread_capture=None
     camnum=0
     ismakeavi=True
     out=None#ddfsf
-    def __init__(self,_savedirpath='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/',_camnum=0):
+    video_lenght=10 #second
+    def __init__(self,_savedirpath='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/',_camnum=0,_video_lenght=10):
         l.L_Flow()
         self.frame = []
-        #self.SAVEDIRPATH=_savedirpath
-        #self.camnum=_camnum
+        self.SAVEDIRPATH=_savedirpath
+        self.camnum=_camnum
+        self.video_lenght=_video_lenght
+
     def __del__(self):
         l.L_Flow()
         self.out.release()
@@ -36,7 +39,7 @@ class Video:
     
 #Custom 
     #캠을 여는 함수
-    def OpenCam(self):#dfs
+    def OpenCam(self):
         l.L_Flow()
         self.camera = cv2.VideoCapture(0)  
         self.camera.set(3,320)
@@ -51,7 +54,7 @@ class Video:
     #타이머
     def SetTimer_A(self):
         l.L_Flow()
-        tt=threading.Timer(10,self.SetTimer_A)
+        tt=threading.Timer(self.video_lenght,self.SetTimer_A)
         tt.daemon=True
         tt.start()
         self.ismakeavi=False    
@@ -70,13 +73,13 @@ class Video:
             _saveavifilepath=self.SAVEDIRPATH+today+'_'+'cam'+str(self.camnum)+'.avi'
             self.out = cv2.VideoWriter(_saveavifilepath,cv2.VideoWriter_fourcc('M','J','P','G'), fps, (width,height))
             while self.ismakeavi:
-                print('1')
+               
                 self.thread_capture=threading.Thread(target=self.CaptureCam)
                 self.thread_capture.start()
                 self.thread_capture.join()
-                print('2')
+                
                 self.out.write(self.frame)
-                print('3')
+                
             self.out.release()
             self.ismakeavi=True
         pass

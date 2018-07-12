@@ -10,6 +10,11 @@ import Video
 #Custom Li
 import Log as l
 
+#
+CAMIP='192.168.137.1' #무선인터넷
+#CAMIP='220.90.196.192' # 유선 인터넷
+
+
 class CamManger:
     video=None #Cam 객체
     thread_video=None
@@ -29,7 +34,7 @@ class CamManger:
     #흐름을 담당하는 함수
     def Run(self):
         l.L_Flow()
-
+        global CAMIP
         #캠 열기
         self.video.OpenCam()
         #캠 작동 시키기
@@ -40,8 +45,8 @@ class CamManger:
         
 
         #Webserver 실행
-        #thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,))
-        #thread_webserver.start()
+        thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,CAMIP))
+        thread_webserver.start()
         pass
     
     #frame 에서 jpg로 변환된 파일을 가져오는 함수
