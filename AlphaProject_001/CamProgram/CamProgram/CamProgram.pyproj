@@ -25,13 +25,17 @@
     <Compile Include="CamMain.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataCommunication.py">
+    <Compile Include="CamManager.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DB.py" />
     <Compile Include="FaceRecog.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Log.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TCPIP.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Video.py">
