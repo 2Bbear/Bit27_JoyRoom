@@ -21,11 +21,11 @@ import Log as l
 app = Flask(__name__)
 cm=None
 #======================================
-def WebServerStart(_cm):
+def WebServerStart(_cm,_host='220.90.196.192'):
+    l.L_Flow()
     global cm
     cm=_cm
-    l.L_Flow()
-    app.run(host='220.90.196.192', debug=False)
+    app.run(host=_host, debug=False)
     
     
 

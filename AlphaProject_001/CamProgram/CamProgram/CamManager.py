@@ -17,7 +17,7 @@ class CamManger:
     thread_webserver=None
     def __init__(self):
         l.L_Flow()
-        self.video=Video.Video()
+        self.video=Video.Video(_camnum=1)
         pass
     def __del(self):
         l.L_Flow()
@@ -31,14 +31,13 @@ class CamManger:
         l.L_Flow()
 
         #캠 열기
-        self.video.OpenCam(0)
+        self.video.OpenCam()
         #캠 작동 시키기
         self.thread_video=threading.Thread(target=self.video.RunFrame)
         self.thread_video.start()
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
 
-        #타이머
-        self.SetTimer_A()
+        
 
         #Webserver 실행
         #thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,))
@@ -49,13 +48,7 @@ class CamManger:
     def get_jpg_bytes(self):
         return self.video.get_jpg_bytes()
     #Cam 영상을 저장하는 함수=================================================
-    #타이머
-    def SetTimer_A(self):
-        l.L_Flow()
-        tt=threading.Timer(10,self.SetTimer_A)
-        tt.daemon=True
-        tt.start()
-        self.video.ismakeavi=False
+    
     #===========================================================================
     #Cam 영상을 화면에 출력하는 함수
     def ShowCamWindow(self):
