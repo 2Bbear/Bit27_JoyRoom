@@ -58,7 +58,7 @@ class CamManger:
         l.L_Flow()
         while True:
             self.video.MakeAviFile()
-        print('waat?')    
+         
         pass
 
     #타이머
