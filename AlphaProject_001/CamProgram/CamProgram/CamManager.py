@@ -11,8 +11,8 @@ import Video
 import Log as l
 
 #
-CAMIP='192.168.137.1' #무선인터넷
-#CAMIP='220.90.196.192' # 유선 인터넷
+#CAMIP='192.168.137.1' #무선인터넷
+CAMIP='220.90.196.192' # 유선 인터넷
 
 
 class CamManger:
