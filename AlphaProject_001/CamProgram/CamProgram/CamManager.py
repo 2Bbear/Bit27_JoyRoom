@@ -2,6 +2,7 @@ import threading
 import cv2
 import numpy as np  
 import time
+import glob
 #Team Libliry
 import WebServer
 import TCPClient
@@ -17,12 +18,15 @@ CAMIP='220.90.196.192' # 유선 인터넷
 
 class CamManger:
     video=None #Cam 객체
+    tcpclient=None # TcpClient 객체
     thread_video=None
     thread_makeavi=None
     thread_webserver=None
+    thread_sendfile=None
     def __init__(self):
         l.L_Flow()
         self.video=Video.Video(_camnum=1)
+        self.tcpclient=TCPClient.TcpClient('220.90.196.192',9009)
         pass
     def __del(self):
         l.L_Flow()
@@ -31,6 +35,34 @@ class CamManger:
 #Override
     
 #Custom
+    #파일을 보내는 함수
+    def SendData(self):
+        l.L_Flow()
+        #기존 파일수
+        filenum=1;
+        #전송 시작
+        issendfile=False
+        #디렉토리 감시
+        while True:
+            list = glob.glob('D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/*')
+            #파일수가 증가했다면
+            if(list.__len__()>filenum):
+                
+                issendfile=True
+                filenum=list.__len__()
+                #파일보내기
+                if(issendfile):
+                    st2=str(list[list.__len__()-2]).replace('\\','/')
+                    
+                    if(self.tcpclient.SendFileToServer(st2)==False):
+                        filenum-=1
+                        continue
+                    issendfile=False
+                pass
+            
+            pass
+            time.sleep(1)#=============이거 이거 고쳐야 함
+        pass
     #흐름을 담당하는 함수
     def Run(self):
         l.L_Flow()
@@ -42,7 +74,9 @@ class CamManger:
         self.thread_video.start()
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
 
-        
+        #Tcp로 파일 전송하기
+        self.thread_sendfile=threading.Thread(target=self.SendData)
+        self.thread_sendfile.start()
 
         #Webserver 실행
         thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,CAMIP))

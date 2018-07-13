@@ -20,6 +20,7 @@ class Video:
     ismakeavi=True
     out=None#ddfsf
     video_lenght=10 #second
+    
     def __init__(self,_savedirpath='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/',_camnum=0,_video_lenght=10):
         l.L_Flow()
         self.frame = []
@@ -82,6 +83,7 @@ class Video:
                 
             self.out.release()
             self.ismakeavi=True
+            
         pass
 
     #캠을 닫는 함수
