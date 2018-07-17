@@ -25,7 +25,7 @@ class CamManger:
     thread_sendfile=None
     def __init__(self):
         l.L_Flow()
-        self.video=Video.Video(_camnum=1)
+        self.video=Video.Video(_savedirpath='saveavi/',_camnum=1)
         self.tcpclient=TCPClient.TcpClient('220.90.196.192',9009)
         pass
     def __del(self):
