@@ -52,11 +52,13 @@ class CamManger:
                 filenum=list.__len__()
                 #파일보내기
                 if(issendfile):
+                    print("sendDataAAAAAAAAAAAAAAAAAAAAAAA")
                     st2=str(list[list.__len__()-2]).replace('\\','/')
                     
                     if(self.tcpclient.SendFileToServer(st2)==False):
                         filenum-=1
                         continue
+
                     issendfile=False
                 pass
             
