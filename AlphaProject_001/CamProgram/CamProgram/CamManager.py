@@ -44,7 +44,8 @@ class CamManger:
         issendfile=False
         #디렉토리 감시
         while True:
-            list = glob.glob('D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/*')
+            #'D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/*'
+            list = glob.glob('saveavi/*')
             #파일수가 증가했다면
             if(list.__len__()>filenum):
                 
@@ -52,9 +53,8 @@ class CamManger:
                 filenum=list.__len__()
                 #파일보내기
                 if(issendfile):
-                    print("sendDataAAAAAAAAAAAAAAAAAAAAAAA")
+             
                     st2=str(list[list.__len__()-2]).replace('\\','/')
-                    
                     if(self.tcpclient.SendFileToServer(st2)==False):
                         filenum-=1
                         continue
@@ -65,6 +65,8 @@ class CamManger:
             pass
             time.sleep(1)#=============이거 이거 고쳐야 함
         pass
+    
+
     #흐름을 담당하는 함수
     def Run(self):
         l.L_Flow()

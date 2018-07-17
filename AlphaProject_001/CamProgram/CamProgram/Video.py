@@ -20,6 +20,8 @@ class Video:
     ismakeavi=True
     out=None#ddfsf
     video_lenght=10 #second
+   
+    testflg=False
     
     def __init__(self,_savedirpath='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/',_camnum=0,_video_lenght=10):
         l.L_Flow()
@@ -68,11 +70,16 @@ class Video:
         fps=15
         width=int(self.camera.get(3))
         height=int(self.camera.get(4))
-        
+        self.ismakeavi=True
         while True:
+            
+            #파일 이름 만들기
             today=datetime.today().strftime("%Y%m%d%H%M%S")
+            
             _saveavifilepath=self.SAVEDIRPATH+today+'_'+'cam'+str(self.camnum)+'.avi'
+            #파일 파이프 생성
             self.out = cv2.VideoWriter(_saveavifilepath,cv2.VideoWriter_fourcc('M','J','P','G'), fps, (width,height))
+            #프레임찍기
             while self.ismakeavi:
                
                 self.thread_capture=threading.Thread(target=self.CaptureCam)
@@ -80,10 +87,10 @@ class Video:
                 self.thread_capture.join()
                 
                 self.out.write(self.frame)
-                
+            #파일 파이프 닫기    
             self.out.release()
             self.ismakeavi=True
-            
+            self.testflg=True
         pass
 
     #캠을 닫는 함수
