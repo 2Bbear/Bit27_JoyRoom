@@ -7,26 +7,42 @@ import glob
 import WebServer
 import TCPClient
 import Video
-
+import DB
 #Custom Li
 import Log as l
 
-#
-#CAMIP='192.168.137.1' #무선인터넷
-CAMIP='220.90.196.192' # 유선 인터넷
-
-
 class CamManger:
+    #Cam관련
+    #CAMIP='192.168.137.1' #무선인터넷
+    CAMIP='220.90.196.192' # 유선 인터넷
+    #220.90.196.196 #주 서버 컴퓨터 아이피
+    CAMNUM=1 # cam 번호
+    CAMLENGHT=10 #avi 길이 , second 단위
+
+    #ServerProgram 관련
+    SERVERIP='220.90.196.196'
+    SERVERPORT=9009
+
+    #DB 관련
+    SERVERDBIP='220.90.196.196'
+    SERVERDBPORT='3306'
+    SERVERDBUSER='bit271'
+    SERVERDBPASSWORD='123123'
+    SERVERDBNAME='sys'
+
     video=None #Cam 객체
     tcpclient=None # TcpClient 객체
+    db=None # DB 객체
     thread_video=None
     thread_makeavi=None
     thread_webserver=None
     thread_sendfile=None
+
     def __init__(self):
         l.L_Flow()
-        self.video=Video.Video(_savedirpath='saveavi/',_camnum=1)
-        self.tcpclient=TCPClient.TcpClient('220.90.196.192',9009)
+        self.video=Video.Video(_savedirpath='saveavi/',_camnum=self.CAMNUM,_video_lenght=self.CAMLENGHT)
+        self.tcpclient=TCPClient.TcpClient('220.90.196.196',9009)
+        self.db=DB.DB(_host=self.CAMIP)
         pass
     def __del(self):
         l.L_Flow()
@@ -34,6 +50,29 @@ class CamManger:
 
 #Override
     
+#Team
+    #흐름을 담당하는 함수
+    def Run(self):
+        l.L_Flow()
+       
+        #DB에 캠 등록하기
+        self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
+        
+        #캠 열기
+        self.video.OpenCam()
+        #캠 작동 시키기
+        self.thread_video=threading.Thread(target=self.video.RunFrame)
+        self.thread_video.start()
+        time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
+
+        #Tcp로 파일 전송하기
+        self.thread_sendfile=threading.Thread(target=self.SendData)
+        self.thread_sendfile.start()
+
+        #Webserver 실행
+        thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,self.CAMIP))
+        thread_webserver.start()
+        pass
 #Custom
     #파일을 보내는 함수
     def SendData(self):
@@ -67,25 +106,7 @@ class CamManger:
         pass
     
 
-    #흐름을 담당하는 함수
-    def Run(self):
-        l.L_Flow()
-        global CAMIP
-        #캠 열기
-        self.video.OpenCam()
-        #캠 작동 시키기
-        self.thread_video=threading.Thread(target=self.video.RunFrame)
-        self.thread_video.start()
-        time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
-
-        #Tcp로 파일 전송하기
-        self.thread_sendfile=threading.Thread(target=self.SendData)
-        self.thread_sendfile.start()
-
-        #Webserver 실행
-        thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,CAMIP))
-        thread_webserver.start()
-        pass
+    
     
     #frame 에서 jpg로 변환된 파일을 가져오는 함수
     def get_jpg_bytes(self):

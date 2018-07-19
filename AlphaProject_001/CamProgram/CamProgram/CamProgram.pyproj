@@ -28,6 +28,9 @@
     <Compile Include="CamManager.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DB.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FaceRecog.py">
       <SubType>Code</SubType>
     </Compile>
