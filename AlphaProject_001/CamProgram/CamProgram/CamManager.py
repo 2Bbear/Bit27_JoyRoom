@@ -3,6 +3,7 @@ import cv2
 import numpy as np  
 import time
 import glob
+import os
 #Team Libliry
 import WebServer
 import TCPClient
@@ -20,7 +21,7 @@ class CamManger:
     CAMLENGHT=10 #avi 길이 , second 단위
 
     #ServerProgram 관련
-    SERVERIP='220.90.196.196'
+    SERVERIP='220.90.196.192'#'220.90.196.196'
     SERVERPORT=9009
 
     #DB 관련
@@ -38,10 +39,14 @@ class CamManger:
     thread_webserver=None
     thread_sendfile=None
 
+    #==========================================
+   
+    #==========================================
+
     def __init__(self):
         l.L_Flow()
         self.video=Video.Video(_savedirpath='saveavi/',_camnum=self.CAMNUM,_video_lenght=self.CAMLENGHT)
-        self.tcpclient=TCPClient.TcpClient('220.90.196.196',9009)
+        self.tcpclient=TCPClient.TcpClient(self.SERVERIP,9009)
         self.db=DB.DB(_host=self.CAMIP)
         pass
     def __del(self):
@@ -56,7 +61,7 @@ class CamManger:
         l.L_Flow()
        
         #DB에 캠 등록하기
-        self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
+        #self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
         
         #캠 열기
         self.video.OpenCam()
@@ -66,7 +71,7 @@ class CamManger:
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
 
         #Tcp로 파일 전송하기
-        self.thread_sendfile=threading.Thread(target=self.SendData)
+        self.thread_sendfile=threading.Thread(target=self.SendData2)
         self.thread_sendfile.start()
 
         #Webserver 실행
@@ -74,6 +79,33 @@ class CamManger:
         thread_webserver.start()
         pass
 #Custom
+     #파일을 보내는 함수
+    def SendData2(self):
+        l.L_Flow()
+        #전송 시작
+        issendfile=False
+        #디렉토리 감시
+        while True:
+            #'D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/*'
+            list = glob.glob('saveavi/*')
+            #파일수1개 이상일때
+            if(list.__len__()>1):
+                issendfile=True
+                #파일보내기
+                if(issendfile):
+                    st2=str(list[list.__len__()-2]).replace('\\','/')
+                    #파일 전송에 실패 했을 때
+                    if(self.tcpclient.SendFileToServer(st2)==False):
+                        continue
+                    #파일 전송에 성공 했을 때
+                    else:
+                        os.remove(st2)
+                    issendfile=False
+                pass
+            
+            pass
+            time.sleep(1)#=============이거 이거 고쳐야 함
+        pass
     #파일을 보내는 함수
     def SendData(self):
         l.L_Flow()
@@ -92,12 +124,10 @@ class CamManger:
                 filenum=list.__len__()
                 #파일보내기
                 if(issendfile):
-             
                     st2=str(list[list.__len__()-2]).replace('\\','/')
                     if(self.tcpclient.SendFileToServer(st2)==False):
                         filenum-=1
                         continue
-
                     issendfile=False
                 pass
             
