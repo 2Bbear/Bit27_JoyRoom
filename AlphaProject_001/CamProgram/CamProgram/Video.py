@@ -66,8 +66,8 @@ class Video:
         l.L_Flow()
         #타이머
         self.SetTimer_A()
-
-        fps=15
+        #어 프레임수
+        fps=30
         width=int(self.camera.get(3))
         height=int(self.camera.get(4))
         self.ismakeavi=True
@@ -77,7 +77,7 @@ class Video:
             today=datetime.today().strftime("%Y%m%d%H%M%S")
             
             _saveavifilepath=self.SAVEDIRPATH+today+'_'+'cam'+str(self.camnum)+'.avi'
-            #파일 파이프 생성
+            #avi 영상으로 만드는 부분
             self.out = cv2.VideoWriter(_saveavifilepath,cv2.VideoWriter_fourcc('M','J','P','G'), fps, (width,height))
             #프레임찍기
             while self.ismakeavi:

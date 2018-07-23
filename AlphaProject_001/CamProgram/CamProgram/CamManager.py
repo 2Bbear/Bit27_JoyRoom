@@ -15,13 +15,13 @@ import Log as l
 class CamManger:
     #Cam관련
     #CAMIP='192.168.137.1' #무선인터넷
-    CAMIP='220.90.196.192' # 유선 인터넷
+    CAMIP='192.168.137.1' # 유선 인터넷
     #220.90.196.196 #주 서버 컴퓨터 아이피
     CAMNUM=1 # cam 번호
-    CAMLENGHT=10 #avi 길이 , second 단위
+    CAMLENGHT=30 #avi 길이 , second 단위
 
     #ServerProgram 관련
-    SERVERIP='220.90.196.192'#'220.90.196.196'
+    SERVERIP='220.90.196.196'#'220.90.196.196'
     SERVERPORT=9009
 
     #DB 관련
@@ -31,6 +31,7 @@ class CamManger:
     SERVERDBPASSWORD='123123'
     SERVERDBNAME='sys'
 
+    
     video=None #Cam 객체
     tcpclient=None # TcpClient 객체
     db=None # DB 객체
@@ -71,8 +72,8 @@ class CamManger:
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
 
         #Tcp로 파일 전송하기
-        self.thread_sendfile=threading.Thread(target=self.SendData2)
-        self.thread_sendfile.start()
+        #self.thread_sendfile=threading.Thread(target=self.SendData2)
+        #self.thread_sendfile.start()
 
         #Webserver 실행
         thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,self.CAMIP))

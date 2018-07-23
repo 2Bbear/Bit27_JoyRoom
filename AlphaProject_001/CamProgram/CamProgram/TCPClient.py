@@ -37,8 +37,8 @@ class TcpClient:
             print('파일이 없음')
             return False # handle()함수를 빠져 나온다.
         print('파일이 있음')
-        self.__getFileFromServer()
-
+        result=self.__getFileFromServer()
+        return result
         pass
 #Custom
     def __getFileFromServer(self):
@@ -61,6 +61,7 @@ class TcpClient:
                         data = f.read(1024)
                 except Exception as e:
                     print(e)
+                    return False
             
             print('전송완료[%s], 전송량[%d]' %(filename,data_transferred))
             
