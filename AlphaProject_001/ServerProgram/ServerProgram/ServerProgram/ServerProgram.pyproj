@@ -2,16 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>5ff9df37-f080-4b72-a343-ce6171f5a8f3</ProjectGuid>
-    <ProjectHome>
-    </ProjectHome>
-    <StartupFile>CamMain.py</StartupFile>
+    <ProjectGuid>e9e4be52-1350-416e-9f95-f8ac0f94d5cb</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>ServerProgram.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>CamProgram</Name>
-    <RootNamespace>DataCommunication</RootNamespace>
+    <Name>ServerProgram</Name>
+    <RootNamespace>ServerProgram</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,38 +21,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CamMain.py">
+    <Compile Include="Log.py" />
+    <Compile Include="ServerManager.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CamManager.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DB.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FaceRecog.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Log.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TCPClient.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Video.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="WebServer.py">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="templates\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="templates\index.html">
-      <SubType>Code</SubType>
-    </Content>
+    <Compile Include="ServerProgram.py" />
+    <Compile Include="TcpIp.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -1,10 +1,10 @@
 #Teem Libliry
-import DataCommunication
+import CamManager
 
 #Custom Libliry
 import Log as l
 class CamMain:
-    dataCom=None
+    cm=CamManager.CamManger()
     def __init__(self):
         l.L_Flow()
         pass
@@ -17,11 +17,12 @@ class CamMain:
     #Team Method
     def Init(self):
         l.L_Flow() 
-        self.dataCom=DataCommunication.DataCommunication()
+        
         pass
 
     def Run(self):
         l.L_Flow() 
+        self.cm.Run()
         pass
 
     def End(self):
