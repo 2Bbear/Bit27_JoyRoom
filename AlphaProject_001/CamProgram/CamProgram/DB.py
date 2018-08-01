@@ -29,14 +29,14 @@ class DB:
         #host=_serverip,port=_dbport ,user=_dbuser, password=_dbpassword,database=_dbname,charset='utf8'
         db = mysql.connector.connect(host=_serverip,port=_dbport ,user=_dbuser, password=_dbpassword,database=_dbname,charset='utf8')
         print('2')
-        loginsert = "INSERT INTO ip(num,ip) VALUES ('" + str(self.num) +"','"+ _serverip + "')" 
+        loginsert = "INSERT INTO ip(num,ip) VALUES ('" + str(self.num) +"','"+ self.truehost + "')" 
         print('3')
         try:
             print('4')
             cursor = db.cursor()
             cursor.execute(loginsert)
             db.commit()
-
+            #이거 지워야겠다.
             if(self.num == '1'):
                 ip1 =  _serverip         
                 print(ip1)
@@ -70,8 +70,9 @@ class DB:
 
     #아이피 최신화해주는 메소드
     def CamIPInsertAgain(self,host):
-        #self.num = input("생성할 아이디를 입력하시오 : ") # 넘버    
-        db = mysql.connector.connect(host='220.90.196.196',port='3306' ,user='bit271', password='123123',database='sys',charset='utf8')
+        #self.num = input("생성할 아이디를 입력하시오 : ") # 넘버   
+        print(6) 
+        db = mysql.connector.connect(host='192.168.0.21',port='3306' ,user='bit271', password='123123',database='sys',charset='utf8')
         loginsert = "INSERT INTO ip(num,ip) VALUES ('" + str(self.num) +"','"+ host + "')"  
         try:
             cursor = db.cursor()
@@ -166,8 +167,7 @@ class DB:
        
     #아이피 최신화 하기 전 지워주는 메소드
     def CamIPDelete(self):
-        
-        db = mysql.connector.connect(host='220.90.196.196',port='3306' ,user='bit271', password='123123',database='sys',charset='utf8')
+        db = mysql.connector.connect(host='192.168.0.21',port='3306' ,user='bit271', password='123123',database='sys',charset='utf8')
         logdelete = "DELETE ip FROM ip WHERE num =" + str(self.num)
         try:
             cursor = db.cursor()

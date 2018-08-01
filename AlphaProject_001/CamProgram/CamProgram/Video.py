@@ -14,18 +14,20 @@ import Log as l
 class Video:
     SAVEDIRPATH=''
     frame = None
+    sendframe=None
     camera = None
     thread_capture=None
     camnum=0
     ismakeavi=True
     out=None#ddfsf
     video_lenght=10 #second
-   
+    facerr=FaceRecog.FaceRecog()
     testflg=False
     
     def __init__(self,_savedirpath='D:/GitHub/Bit27_JoyRoom/AlphaProject_001/CamProgram/CamProgram/saveavi/',_camnum=0,_video_lenght=10):
         l.L_Flow()
         self.frame = []
+        self.sendframe=[]
         self.SAVEDIRPATH=_savedirpath
         self.camnum=_camnum
         self.video_lenght=_video_lenght
@@ -44,14 +46,18 @@ class Video:
     #캠을 여는 함수
     def OpenCam(self):
         l.L_Flow()
-        self.camera = cv2.VideoCapture(0)  
-        self.camera.set(3,320)
-        self.camera.set(4,240)
+        self.camera = cv2.VideoCapture(1)  
+        self.camera.set(3,800)#320 1280 1680
+        self.camera.set(4,600)#240 960 1050
+        
 
     #프레임을 찍는 함수
     def CaptureCam(self):
         lock.acquire()
         ret,self.frame =self.camera.read()
+        self.sendframe=self.frame.copy()
+        #얼굴 사각형 그리는 함수
+        self.facerr.FindFace(self.frame)
         lock.release()
 
     #타이머
@@ -74,7 +80,7 @@ class Video:
         while True:
             
             #파일 이름 만들기
-            today=datetime.today().strftime("%Y%m%d%H%M%S")
+            today=datetime.today().strftime("%Y%m%d%H%M")
             
             _saveavifilepath=self.SAVEDIRPATH+today+'_'+'cam'+str(self.camnum)+'.avi'
             #avi 영상으로 만드는 부분
@@ -86,7 +92,7 @@ class Video:
                 self.thread_capture.start()
                 self.thread_capture.join()
                 
-                self.out.write(self.frame)
+                self.out.write(self.sendframe)#self.frame
             #파일 파이프 닫기    
             self.out.release()
             self.ismakeavi=True

@@ -15,17 +15,18 @@ import Log as l
 class CamManger:
     #Cam관련
     #CAMIP='192.168.137.1' #무선인터넷
-    CAMIP='192.168.137.1' # 유선 인터넷
+    # 220.90.196.192  유선인터넷
+    CAMIP='192.168.0.30' # 유선 인터넷
     #220.90.196.196 #주 서버 컴퓨터 아이피
     CAMNUM=1 # cam 번호
-    CAMLENGHT=30 #avi 길이 , second 단위
+    CAMLENGHT=60 #avi 길이 , second 단위
 
     #ServerProgram 관련
-    SERVERIP='220.90.196.196'#'220.90.196.196'
+    SERVERIP='192.168.0.21'#'220.90.196.196'
     SERVERPORT=9009
 
     #DB 관련
-    SERVERDBIP='220.90.196.196'
+    SERVERDBIP='192.168.0.21'
     SERVERDBPORT='3306'
     SERVERDBUSER='bit271'
     SERVERDBPASSWORD='123123'
@@ -50,7 +51,7 @@ class CamManger:
         self.tcpclient=TCPClient.TcpClient(self.SERVERIP,9009)
         self.db=DB.DB(_host=self.CAMIP)
         pass
-    def __del(self):
+    def __del(self):                                                                          
         l.L_Flow()
         pass
 
@@ -62,7 +63,7 @@ class CamManger:
         l.L_Flow()
        
         #DB에 캠 등록하기
-        #self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
+        self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
         
         #캠 열기
         self.video.OpenCam()
@@ -72,8 +73,8 @@ class CamManger:
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
 
         #Tcp로 파일 전송하기
-        #self.thread_sendfile=threading.Thread(target=self.SendData2)
-        #self.thread_sendfile.start()
+        self.thread_sendfile=threading.Thread(target=self.SendData2)
+        self.thread_sendfile.start()
 
         #Webserver 실행
         thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,self.CAMIP))

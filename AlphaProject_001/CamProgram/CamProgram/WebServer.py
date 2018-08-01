@@ -33,7 +33,7 @@ def WebServerStart(_cm,_host='220.90.196.192'):
 @app.route('/')
 def RouteMethod():
     l.L_Flow()
-    return 'Web Server is Start'
+    return render_template('index.html')
 
 #영상 전송===========================
 def gen():
@@ -42,6 +42,7 @@ def gen():
     
     while True:
         jpg_bytes=cm.get_jpg_bytes()
+        
         yield (b'--frame\r\n' 
                b'Content-Type: image/jpeg\r\n\r\n' + jpg_bytes + b'\r\n\r\n')
 
