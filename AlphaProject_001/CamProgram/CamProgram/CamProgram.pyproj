@@ -48,6 +48,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="targetface\" />
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>

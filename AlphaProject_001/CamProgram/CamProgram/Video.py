@@ -46,7 +46,7 @@ class Video:
     #캠을 여는 함수
     def OpenCam(self):
         l.L_Flow()
-        self.camera = cv2.VideoCapture(1)  
+        self.camera = cv2.VideoCapture(0)  
         self.camera.set(3,800)#320 1280 1680
         self.camera.set(4,600)#240 960 1050
         
