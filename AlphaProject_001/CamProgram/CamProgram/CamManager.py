@@ -63,7 +63,7 @@ class CamManger:
         l.L_Flow()
        
         #DB에 캠 등록하기
-        #self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
+        self.db.CamIPInsert(_serverip=self.SERVERDBIP,_dbport=self.SERVERDBPORT,_dbuser=self.SERVERDBUSER,_dbpassword=self.SERVERDBPASSWORD,_dbname=self.SERVERDBNAME,_camnum=self.CAMNUM)
         
         #캠 열기
         self.video.OpenCam()
@@ -73,8 +73,8 @@ class CamManger:
         time.sleep(1) # 캠이 작동 하는데 까지 약간 시간이 필요함
 
         #Tcp로 파일 전송하기
-        #self.thread_sendfile=threading.Thread(target=self.SendData2)
-        #self.thread_sendfile.start()
+        self.thread_sendfile=threading.Thread(target=self.SendData2)
+        self.thread_sendfile.start()
 
         #Webserver 실행
         thread_webserver=threading.Thread(target=WebServer.WebServerStart,args=(self,self.CAMIP))
